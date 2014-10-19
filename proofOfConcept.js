@@ -45,6 +45,7 @@ function runInChromeReplFromInboxMessagesSection(){
 }
 
 /*
+ pseudocode
  steps required to complete. with jquery
 
  var rex = /alan|turing/igm
@@ -53,45 +54,43 @@ function runInChromeReplFromInboxMessagesSection(){
 
  browser.get('http://linkedin.com').
  then(function(){
- jQuery(document).ready(function($){
- $('#session_key-login').val('');
- $('#session_password-login').val('');
- $('#signin').click();
- });
+   jQuery(document).ready(function($){
+     $('#session_key-login').val('');
+     $('#session_password-login').val('');
+     $('#signin').click();
+   });
 
  }).then(function(){
  browser.get('https://www.linkedin.com/inbox/#messages?trk=nav_utilities_inbox').
- then(function(){
- jQuery(document).ready(function($){
- var messages = $('.inbox-item').toArray()
- , $messages = $(messages)
- , urlParamArr = [];
+   then(function(){
+     jQuery(document).ready(function($){
+       var messages = $('.inbox-item').toArray()
+       , $messages = $(messages)
+       , urlParamArr = [];
 
- for(var i = 0; i < messages.length; i++){
- urlParamArr.push($messages.eq(i).attr('data-gid'));
- }
+       for(var i = 0; i < messages.length; i++){
+        urlParamArr.push($messages.eq(i).attr('data-gid'));
+       }
 
- for(var i = 0; i < urlParamArr.length; i++){
- $.get(urlParamArr[i]).success(function(data){
- var txt = $('#content .inbox-item-body')[0].innerText
- , result = rex.test(txt);
+       for(var i = 0; i < urlParamArr.length; i++){
+         $.get(urlParamArr[i]).success(function(data){
+           var txt = $('#content .inbox-item-body')[0].innerText
+           , result = rex.test(txt);
 
- if(result){
- console.log('good job!')
- successArr.push(
- } else {
- console.log('fail');
- }
+           if(result){
+             console.log('good job!')
+             successArr.push(
+           } else {
+             console.log('fail');
+           }
 
- })
- }
+         })
+       }
 
 
+     });
+   });
  });
-
-
- });
- })
 
 
 
